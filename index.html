@@ -1,0 +1,506 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+    <title>DocZ - Central de Templates de E-mail</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            background: linear-gradient(135deg, #f8fafc 0%, #eef2f6 100%);
+            min-height: 100vh;
+            padding: 2rem 1rem;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        /* Hero Section */
+        .hero {
+            text-align: center;
+            margin-bottom: 3rem;
+            padding: 2rem 1rem;
+            background: linear-gradient(135deg, #000a69 0%, #1a1a7e 100%);
+            border-radius: 1.5rem;
+            color: white;
+            box-shadow: 0 20px 35px -12px rgba(0, 0, 0, 0.2);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: -30%;
+            right: -10%;
+            width: 300px;
+            height: 300px;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 50%;
+            pointer-events: none;
+        }
+
+        .hero::after {
+            content: '';
+            position: absolute;
+            bottom: -30%;
+            left: -10%;
+            width: 250px;
+            height: 250px;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 50%;
+            pointer-events: none;
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 2;
+        }
+
+        .hero h1 {
+            font-size: 2.5rem;
+            font-weight: 700;
+            letter-spacing: -0.5px;
+        }
+
+        .hero p {
+            font-size: 1.1rem;
+            opacity: 0.9;
+            max-width: 600px;
+            margin: 0.75rem auto 0;
+        }
+
+        .stats-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: rgba(255, 255, 255, 0.2);
+            backdrop-filter: blur(4px);
+            padding: 0.4rem 1rem;
+            border-radius: 40px;
+            font-size: 0.85rem;
+            margin-top: 1rem;
+            font-weight: 500;
+        }
+
+        /* Search Section */
+        .search-section {
+            margin-bottom: 2rem;
+            display: flex;
+            justify-content: center;
+        }
+
+        .search-wrapper {
+            background: white;
+            border-radius: 60px;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.05);
+            padding: 0.2rem 0.2rem 0.2rem 1.5rem;
+            display: flex;
+            align-items: center;
+            max-width: 500px;
+            width: 100%;
+            border: 1px solid #e2e8f0;
+            transition: all 0.2s;
+        }
+
+        .search-wrapper:focus-within {
+            border-color: #000a69;
+            box-shadow: 0 8px 25px rgba(0, 10, 105, 0.15);
+        }
+
+        .search-wrapper svg {
+            flex-shrink: 0;
+        }
+
+        .search-wrapper input {
+            flex: 1;
+            border: none;
+            padding: 0.9rem 0.8rem;
+            font-size: 1rem;
+            background: transparent;
+            outline: none;
+            font-family: inherit;
+        }
+
+        .search-wrapper button {
+            background: linear-gradient(135deg, #000a69 0%, #1a1a7e 100%);
+            border: none;
+            color: white;
+            padding: 0.7rem 1.5rem;
+            border-radius: 40px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.2s;
+            font-size: 0.9rem;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .search-wrapper button:hover {
+            transform: scale(0.96);
+            opacity: 0.9;
+        }
+
+        /* Grid de cards */
+        .templates-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+            gap: 1.8rem;
+            margin-top: 1rem;
+        }
+
+        /* Card */
+        .template-card {
+            background: white;
+            border-radius: 1rem;
+            overflow: hidden;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+            transition: all 0.3s cubic-bezier(0.2, 0, 0, 1);
+            border: 1px solid #e9edf2;
+            display: flex;
+            flex-direction: column;
+            height: 100%;
+        }
+
+        .template-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 30px -12px rgba(0, 0, 0, 0.12);
+            border-color: #cbd5e1;
+        }
+
+        .card-header {
+            padding: 1.2rem 1.5rem 0.8rem;
+            background: linear-gradient(to bottom, #ffffff, #fefefe);
+            border-bottom: 1px solid #f0f2f5;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .card-icon {
+            width: 45px;
+            height: 45px;
+            background: #eef2ff;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+        }
+
+        .card-title {
+            flex: 1;
+        }
+
+        .card-title h3 {
+            font-size: 1rem;
+            font-weight: 700;
+            color: #0f172a;
+            line-height: 1.3;
+        }
+
+        .card-body {
+            padding: 1rem 1.5rem;
+            flex: 1;
+        }
+
+        .card-description {
+            font-size: 0.85rem;
+            color: #475569;
+            line-height: 1.5;
+            display: flex;
+            align-items: flex-start;
+            gap: 8px;
+        }
+
+        .card-description svg {
+            flex-shrink: 0;
+            margin-top: 2px;
+        }
+
+        .card-footer {
+            padding: 1rem 1.5rem 1.3rem;
+            border-top: 1px solid #edf2f7;
+            display: flex;
+            justify-content: flex-end;
+            align-items: center;
+            background: #fafcff;
+        }
+
+        .btn-view {
+            background: linear-gradient(135deg, #000a69 0%, #1a1a7e 100%);
+            color: white;
+            padding: 0.55rem 1.5rem;
+            border-radius: 40px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            text-decoration: none;
+            transition: all 0.2s;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+        }
+
+        .btn-view:hover {
+            transform: translateY(-2px);
+            filter: brightness(1.05);
+            box-shadow: 0 5px 12px rgba(0, 10, 105, 0.2);
+        }
+
+        .empty-state {
+            text-align: center;
+            padding: 4rem 2rem;
+            background: white;
+            border-radius: 2rem;
+            grid-column: 1 / -1;
+            color: #475569;
+        }
+
+        .empty-state svg {
+            margin-bottom: 1rem;
+        }
+
+        .empty-state h3 {
+            margin-bottom: 0.5rem;
+            color: #1f3349;
+        }
+
+        @media (max-width: 680px) {
+            body {
+                padding: 1rem;
+            }
+            .hero h1 {
+                font-size: 1.8rem;
+            }
+            .search-wrapper {
+                padding-left: 1rem;
+            }
+            .search-wrapper button {
+                padding: 0.6rem 1rem;
+            }
+            .templates-grid {
+                grid-template-columns: 1fr;
+            }
+            .card-footer {
+                justify-content: center;
+            }
+        }
+
+        @media (prefers-color-scheme: dark) {
+            body {
+                background: linear-gradient(135deg, #0f172a 0%, #1a1f2e 100%);
+            }
+            .template-card {
+                background: #1e293b;
+                border-color: #334155;
+            }
+            .card-header {
+                background: #1e293b;
+                border-bottom-color: #334155;
+            }
+            .card-title h3 {
+                color: #f1f5f9;
+            }
+            .card-body {
+                background: #1e293b;
+            }
+            .card-description {
+                color: #94a3b8;
+            }
+            .card-footer {
+                background: #0f172a;
+                border-top-color: #334155;
+            }
+            .empty-state {
+                background: #1e293b;
+                color: #94a3b8;
+            }
+            .empty-state h3 {
+                color: #e2e8f0;
+            }
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="hero">
+            <div class="hero-content">
+                <h1>Central de Templates</h1>
+                <p>Visualize e acesse todos os modelos de e-mail do sistema DocZ.<br>Notificações, validações, recibos e mais.</p>
+                <div class="stats-badge" id="templateCountBadge">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M4 4H20C21.1 4 22 4.9 22 6V18C22 19.1 21.1 20 20 20H4C2.9 20 2 19.1 2 18V6C2 4.9 2.9 4 4 4Z" stroke="white" stroke-width="1.5" fill="none"/>
+                        <path d="M22 6L12 13L2 6" stroke="white" stroke-width="1.5" fill="none"/>
+                    </svg>
+                    <span>Carregando templates...</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="search-section">
+            <div class="search-wrapper">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M15.5 15.5L21 21" stroke="#64748b" stroke-width="1.8" stroke-linecap="round"/>
+                    <circle cx="10" cy="10" r="7" stroke="#64748b" stroke-width="1.8"/>
+                </svg>
+                <input type="text" id="searchInput" placeholder="Filtrar por nome, tipo, cliente..." autocomplete="off">
+                <button id="clearSearchBtn">
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M18 6L6 18" stroke="white" stroke-width="2" stroke-linecap="round"/>
+                        <path d="M6 6L18 18" stroke="white" stroke-width="2" stroke-linecap="round"/>
+                    </svg>
+                    Limpar
+                </button>
+            </div>
+        </div>
+
+        <div id="templatesGrid" class="templates-grid"></div>
+    </div>
+
+    <script>
+        const templates = [
+            { name: "Arquivos Solicitados", file: "arquivos-solicitados.html", desc: "Notificação quando os arquivos solicitados estão disponíveis para download." },
+            { name: "Avaliação de Solicitação", file: "avaliacao.html", desc: "Convite para avaliar atendimento de solicitação finalizada." },
+            { name: "Código Validação OS - Normal", file: "codigo-validacao-os-normal.html", desc: "Código de segurança para atendimento de solicitação padrão." },
+            { name: "Código Validação OS - Urgente", file: "codigo-validacao-os-urgente.html", desc: "Código de segurança para atendimento com prioridade urgente." },
+            { name: "DocZ - Página Inicial", file: "Docz.html", desc: "Página de login e apresentação do sistema DocZ." },
+            { name: "Itens Compartilhados", file: "itens-compartilhados.html", desc: "Lista de documentos ou itens compartilhados com o usuário." },
+            { name: "Novo Usuário", file: "new-user.html", desc: "Credenciais de acesso para novo usuário cadastrado." },
+            { name: "Notificação OS", file: "notificacao_os.html", desc: "Dados detalhados da solicitação e ocorrências." },
+            { name: "Notificação de Transporte", file: "notificação-de-transporte.html", desc: "Informações completas sobre transporte e responsáveis." },
+            { name: "Recibo de Confirmação", file: "novo.html", desc: "Recibo após atendimento de solicitação." },
+            { name: "Prodesp - Dados Solicitação", file: "prodesp.html", desc: "Detalhes de ocorrência para cliente Prodesp." },
+            { name: "Recibo Atendimento (Empréstimo Urgente)", file: "recibo-de-confirmação-recebimento-emprestimo-urgente.html", desc: "Recibo para atendimento urgente de empréstimo." },
+            { name: "Redefinição de Senha", file: "redefinição-de-senha.html", desc: "Nova senha gerada após solicitação de redefinição." },
+            { name: "Senha a Expirar", file: "Senha-a-expirar.HTML", desc: "Aviso sobre expiração da senha com nível de urgência." },
+            { name: "Solicitação de Assinaturas Lote", file: "solicitação-de-assinaturas-de-documentos-em-lote.html", desc: "Relatório de status de assinaturas em lote." }
+        ];
+
+        templates.sort((a, b) => a.name.localeCompare(b.name));
+
+        function getEnvelopeIcon() {
+            return `<svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <rect x="2" y="4" width="20" height="16" rx="2" stroke="#000a69" stroke-width="1.5" fill="none"/>
+                        <path d="M22 6L12 13L2 6" stroke="#000a69" stroke-width="1.5" fill="none"/>
+                    </svg>`;
+        }
+
+        function getDetailIcon() {
+            return `<svg width="14" height="14" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M4 6H20M4 12H20M4 18H20" stroke="currentColor" stroke-width="1.5"/>
+                    </svg>`;
+        }
+
+        function renderTemplates(filterText = "") {
+            const grid = document.getElementById("templatesGrid");
+            const filterLower = filterText.toLowerCase().trim();
+            let filtered = templates;
+
+            if (filterLower !== "") {
+                filtered = templates.filter(tmpl =>
+                    tmpl.name.toLowerCase().includes(filterLower) ||
+                    tmpl.desc.toLowerCase().includes(filterLower)
+                );
+            }
+
+            const countBadge = document.getElementById("templateCountBadge");
+            if (countBadge) {
+                countBadge.innerHTML = `
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M4 4H20C21.1 4 22 4.9 22 6V18C22 19.1 21.1 20 20 20H4C2.9 20 2 19.1 2 18V6C2 4.9 2.9 4 4 4Z" stroke="white" stroke-width="1.5" fill="none"/>
+                        <path d="M22 6L12 13L2 6" stroke="white" stroke-width="1.5" fill="none"/>
+                    </svg>
+                    <span>${filtered.length} template${filtered.length !== 1 ? 's' : ''} disponível(eis)</span>
+                `;
+            }
+
+            if (filtered.length === 0) {
+                grid.innerHTML = `
+                    <div class="empty-state">
+                        <svg width="48" height="48" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M21 21L15 15M17 10C17 13.866 13.866 17 10 17C6.13401 17 3 13.866 3 10C3 6.13401 6.13401 3 10 3C13.866 3 17 6.13401 17 10Z" stroke="currentColor" stroke-width="1.5"/>
+                        </svg>
+                        <h3>Nenhum template encontrado</h3>
+                        <p>Tente outro termo ou limpe a busca.</p>
+                    </div>
+                `;
+                return;
+            }
+
+            grid.innerHTML = "";
+            filtered.forEach(tmpl => {
+                const card = document.createElement("div");
+                card.className = "template-card";
+                card.innerHTML = `
+                    <div class="card-header">
+                        <div class="card-icon" style="background: #eef2ff;">
+                            ${getEnvelopeIcon()}
+                        </div>
+                        <div class="card-title">
+                            <h3>${escapeHtml(tmpl.name)}</h3>
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <div class="card-description">
+                            ${getDetailIcon()}
+                            <span>${escapeHtml(tmpl.desc)}</span>
+                        </div>
+                    </div>
+                    <div class="card-footer">
+                        <a href="${tmpl.file}" target="_blank" class="btn-view">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M18 13V19C18 20.1 17.1 21 16 21H5C3.9 21 3 20.1 3 19V8C3 6.9 3.9 6 5 6H11" stroke="white" stroke-width="1.5"/>
+                                <path d="M15 3H21V9" stroke="white" stroke-width="1.5"/>
+                                <path d="M21 3L11 13" stroke="white" stroke-width="1.5"/>
+                            </svg>
+                            Abrir e-mail
+                        </a>
+                    </div>
+                `;
+                grid.appendChild(card);
+            });
+        }
+
+        function escapeHtml(str) {
+            if (!str) return '';
+            return str.replace(/[&<>]/g, function(m) {
+                if (m === '&') return '&amp;';
+                if (m === '<') return '&lt;';
+                if (m === '>') return '&gt;';
+                return m;
+            });
+        }
+
+        document.addEventListener("DOMContentLoaded", () => {
+            renderTemplates();
+            const searchInput = document.getElementById("searchInput");
+            const clearBtn = document.getElementById("clearSearchBtn");
+            if (searchInput) {
+                searchInput.addEventListener("input", (e) => renderTemplates(e.target.value));
+            }
+            if (clearBtn) {
+                clearBtn.addEventListener("click", () => {
+                    if (searchInput) {
+                        searchInput.value = "";
+                        renderTemplates("");
+                    }
+                });
+            }
+        });
+    </script>
+</body>
+</html>
