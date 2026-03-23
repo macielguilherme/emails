@@ -1,0 +1,473 @@
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dados da Solicitação</title>
+    <style>
+        /* Reset */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            background-color: #ffffff;
+            padding: 2rem;
+        }
+
+        .email-template {
+            width: 600px;
+            border-radius: .5rem;
+            overflow: hidden;
+            color: #1f3349;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, .1);
+            background-color: #ffffff;
+        }
+
+        /* Header/Footer */
+        .email-header,
+        .email-footer {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 48px 40px;
+            background: linear-gradient(135deg, #000a69 0%, #1a1a7e 100%);
+        }
+
+        .email-header img {
+            max-height: 50px;
+            display: block;
+        }
+
+        /* Footer */
+        .footer-content {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            max-width: 560px;
+            margin: 0 auto;
+        }
+
+        .footer-content img {
+            width: 110px;
+            display: block;
+            margin-bottom: 4px;
+        }
+
+        .footer-divider {
+            width: 80px;
+            height: 1px;
+            margin: 8px 0;
+            background-color: rgba(255, 255, 255, .2);
+        }
+
+        .footer-text,
+        .footer-subtext {
+            text-align: center;
+        }
+
+        .footer-text {
+            color: rgba(255, 255, 255, .8);
+        }
+
+        .footer-subtext {
+            color: rgba(255, 255, 255, .6);
+        }
+
+        .footer-contact {
+            color: #fff;
+            text-decoration: none;
+            margin-top: 4px;
+        }
+
+        .footer-contact:hover {
+            color: rgb(173, 173, 173);
+            text-decoration: underline;
+        }
+
+        /* Main */
+        .email-main {
+            padding: 48px 40px;
+        }
+
+        .email-title-section {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        .email-title {
+            font-size: 28px;
+            font-weight: 600;
+            line-height: 1.3;
+        }
+
+        .email-subtitle {
+            font-size: 16px;
+            font-weight: 400;
+            color: #64748b;
+            margin-top: 20px;
+        }
+
+        /* Saudação */
+        .desktop-text {
+            display: block;
+        }
+
+        .mobile-text {
+            display: none;
+        }
+
+        /* Dados Section */
+        .dados-box {
+            margin-top: 32px;
+        }
+
+        .dados-box h3 {
+            font-size: 20px;
+            font-weight: 600;
+            color: #1f3349;
+            margin-bottom: 20px;
+            text-align: left;
+        }
+
+        .dados-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 16px 24px;
+            background-color: #f8fafc;
+            border: 1px solid #e2e8f0;
+            border-radius: 12px;
+            padding: 24px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, .06);
+        }
+
+        .dados-grid .label {
+            font-size: 13px;
+            color: #64748b;
+            margin-bottom: 4px;
+        }
+
+        .dados-grid .value {
+            font-size: 15px;
+            color: #1f3349;
+            font-weight: 500;
+            word-break: break-word;
+        }
+
+        .dados-grid>div[style*="grid-column:1 / -1"] {
+            grid-column: 1 / -1;
+        }
+
+        /* Action Box */
+        .action-box {
+            margin-top: 24px;
+            background-color: #e0e7ff;
+            border: 1px solid #c7d2fe;
+            border-radius: 8px;
+            padding: 16px 20px;
+            color: #1e3a8a;
+            font-size: 15px;
+            font-weight: 500;
+            text-align: center;
+            box-shadow: 0 1px 4px rgba(0, 0, 0, .05);
+        }
+
+        .action-box strong {
+            color: #000a69;
+        }
+
+        /* Extra Info */
+        .extra-info {
+            margin-top: 32px;
+            font-size: 14px;
+            color: #475569;
+            line-height: 1.6;
+        }
+
+        .extra-info strong {
+            color: #1f3349;
+        }
+
+        .extra-info p {
+            margin-bottom: 8px;
+        }
+
+        .pdf-line {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .pdf-icon {
+            width: 18px;
+            height: 18px;
+            flex-shrink: 0;
+        }
+
+
+
+        /* Dark Mode */
+        @media (prefers-color-scheme: dark) {
+            .email-template {
+                background: #0f172a;
+                color: #e2e8f0;
+                border: 1px solid #374151;
+            }
+
+            .email-header,
+            .email-footer {
+                background: linear-gradient(135deg, #1e293b 0%, #334155 100%);
+            }
+
+            .dados-grid {
+                background-color: #1e293b;
+                border-color: #475569;
+            }
+
+            .dados-box h3 {
+                color: #ffffff;
+            }
+
+            .dados-grid .label {
+                color: #cbd5e1;
+            }
+
+            .dados-grid .value {
+                color: #f1f5f9;
+            }
+
+            .action-box {
+                background-color: #334155;
+                border-color: #475569;
+                color: #e0e7ff;
+            }
+
+            .extra-info {
+                color: #cbd5e1;
+            }
+
+            .footer-text,
+            .footer-subtext {
+                color: rgba(255, 255, 255, 0.8);
+            }
+
+            .footer-contact {
+                color: #fff;
+            }
+        }
+
+        /* Responsividade para telas pequenas */
+        @media screen and (max-width: 480px) {
+            body {
+                padding: 1rem;
+            }
+
+            .email-template {
+                width: 100%;
+                padding: 0;
+            }
+
+            .email-header,
+            .email-footer {
+                padding: 24px 16px;
+            }
+
+            .email-title {
+                font-size: 20px;
+            }
+
+            .email-subtitle {
+                font-size: 12px;
+                margin-top: 10px;
+            }
+
+            .dados-box h3 {
+                font-size: 16px;
+                margin-bottom: 16px;
+            }
+
+            .dados-grid {
+                grid-template-columns: 1fr 1fr;
+                gap: 12px 0;
+                padding: 16px;
+            }
+
+            .dados-grid .label {
+                font-size: 11px;
+            }
+
+            .dados-grid .value {
+                font-size: 13px;
+            }
+
+            .action-box {
+                font-size: 13px;
+                padding: 12px 16px;
+            }
+
+            .extra-info {
+                font-size: 12px;
+            }
+
+            /* Mostra textos mobile e esconde desktop */
+            .desktop-text {
+                display: none;
+            }
+
+            .mobile-text {
+                display: block;
+            }
+
+            .footer-content img {
+                width: 80px;
+            }
+
+            .footer-text,
+            .footer-subtext {
+                font-size: 11px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="email-template">
+        <!-- Header -->
+        <header class="email-header">
+            <img src="Logo-docz.png" alt="DocZ Logo">
+        </header>
+
+        <!-- Main Content -->
+        <main class="email-main">
+            <div class="email-title-section">
+                <h1 class="email-title">Dados da Solicitação</h1>
+                <p class="desktop-text" style="margin-top: 20px;">Prezado(a) <strong>{{nome_do_usuario}}</strong>,</p>
+                <p class="mobile-text" style="margin-top: 20px;">Olá, <strong>{{nome_do_usuario}}</strong></p>
+                <p class="email-subtitle desktop-text">
+                    Confira abaixo as informações detalhadas da sua solicitação registrada no sistema.
+                </p>
+                <p class="email-subtitle mobile-text">
+                    Veja abaixo os detalhes da sua solicitação.
+                </p>
+            </div>
+
+            <section class="dados-box" aria-label="Dados da Solicitação">
+                <h3>Dados da Solicitação</h3>
+
+                <div class="dados-grid">
+                    <div>
+                        <div class="label">Cliente:</div>
+                        <div class="value">{{alias_do_cliente}}</div>
+                    </div>
+
+                    <div>
+                        <div class="label">Projeto:</div>
+                        <div class="value">{{nome_do_projeto}}</div>
+                    </div>
+
+                    <div>
+                        <div class="label">Usuário:</div>
+                        <div class="value">{{nome_do_usuario}}</div>
+                    </div>
+
+                    <div>
+                        <div class="label">Solicitante:</div>
+                        <div class="value">{{nome_do_solicitante}}</div>
+                    </div>
+
+                    <div>
+                        <div class="label">Data (ocorrência):</div>
+                        <div class="value">{{dd/mm/aaaa hh:mm:ss}}</div>
+                    </div>
+
+                    <div>
+                        <div class="label">Data de Confirmação:</div>
+                        <div class="value">{{dd/mm/aaaa hh:mm:ss}}</div>
+                    </div>
+
+                    <div>
+                        <div class="label">Código / O.S.:</div>
+                        <div class="value">{{codigo_os}}</div>
+                    </div>
+
+                    <div>
+                        <div class="label">Status:</div>
+                        <div class="value">{{status_atual}}</div>
+                    </div>
+
+                    <div>
+                        <div class="label">Prioridade:</div>
+                        <div class="value">{{prioridade}}</div>
+                    </div>
+
+                    <div>
+                        <div class="label">Ação / Ocorrência:</div>
+                        <div class="value">{{nome_da_ocorrencia}}</div>
+                    </div>
+
+                    <div style="grid-column:1 / -1;">
+                        <div class="label">Observação:</div>
+                        <div class="value">{{observacoes}}</div>
+                    </div>
+                </div>
+
+                <!-- Ação destacada -->
+                <div class="action-box" role="note" aria-live="polite">
+                    Ação executada: <strong>{{nome_da_ocorrencia}}</strong> — acompanhe as próximas etapas pelo sistema.
+                </div>
+
+                <!-- Informações complementares -->
+                <div class="extra-info">
+
+                   
+                    <!-- PDF Anexo -->
+                    <div class="attachment" aria-hidden="false"
+                        style="display:flex;align-items:center;gap:12px;margin-top:16px;">
+                        <div class="badge"
+                            style=" width: 44px; height: 34px; background: #eef2ff; border-radius: 4px; display: flex; align-items: center; justify-content: center; font-weight: 700; color: #1e293b; border: 1px solid #e6eef6; flex-shrink:0; ">
+                            PDF</div>
+                        <div>
+                            <div style="font-weight:600;">Ordem de Serviço anexada</div>
+                            <div style="font-size:13px;color:#64748b;">
+                                Arquivo: <strong>{{codigo_os}}.pdf</strong> — sempre enviado como anexo nesta
+                                notificação.
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Aviso de registro -->
+                    <p style="font-size:13px;color:#64748b;margin-top:16px;">
+                        Este e-mail é utilizado somente para fins de registro, não devendo ser respondido.
+                    </p>
+
+                    <!-- Informação de criação do e-mail -->
+                    <p style="font-size:13px;color:#64748b;">
+                        E-mail criado eletronicamente por SOS TECNOLOGIA E GESTÃO DA INFORMAÇÃO, em {{dd/mm/aaaa}}, às
+                        {{hh:mm:ss}}, conforme horário oficial de Brasília.
+                    </p>
+
+                </div>
+            </section>
+        </main>
+
+        <!-- Footer -->
+        <footer class="email-footer">
+            <div class="footer-content">
+                <img src="logo-sosdocs-branca.png" alt="SosDocs Logo">
+                <div class="footer-divider"></div>
+                <p class="footer-text desktop-text">E-mail automático enviado pelo sistema DocZ.</p>
+                <p class="footer-text mobile-text">E-mail automático DocZ.</p>
+                <p class="footer-subtext desktop-text">Suporte:</p>
+                <p class="footer-subtext mobile-text">Contato:</p>
+                <a href="mailto:suporte@sosdocs.com" class="footer-contact">suporte@sosdocs.com</a>
+            </div>
+        </footer>
+    </div>
+</body>
+
+</html>
