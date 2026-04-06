@@ -372,23 +372,25 @@
     </div>
 
     <script>
+       
        const templates = [
-        { name: "Arquivos Solicitados", file: "arquivos-solicitados.html", desc: "Notificação quando os arquivos solicitados estão disponíveis para download." },
-        { name: "Avaliação de Solicitação", file: "avaliacao.html", desc: "Convite para avaliar atendimento de solicitação finalizada." },
-        { name: "Código Validação OS - Normal", file: "codigo-validacao-os-normal.html", desc: "Código de segurança para atendimento de solicitação padrão." },
-        { name: "Código Validação OS - Urgente", file: "codigo-validacao-os-urgente.html", desc: "Código de segurança para atendimento com prioridade urgente." },
-        { name: "Itens Compartilhados", file: "itens-compartilhados.html", desc: "Lista de documentos ou itens compartilhados com o usuário." },
-        { name: "Notificação de Transporte", file: "notificação-de-transporte.html", desc: "Informações completas sobre transporte e responsáveis." },
-        { name: "Notificação OS", file: "notificacao_os.html", desc: "Dados detalhados da solicitação e ocorrências." },
-        { name: "Novo Usuário", file: "new-user.html", desc: "Credenciais de acesso para novo usuário cadastrado." },
-        { name: "Prodesp - Dados Solicitação", file: "prodesp.html", desc: "Detalhes de ocorrência para cliente Prodesp." },
-        { name: "Recibo Atendimento (Empréstimo Urgente)", file: "recibo-de-confirmação-recebimento-emprestimo-urgente.html", desc: "Recibo para atendimento urgente de empréstimo." },
-        { name: "Recibo de Confirmação", file: "novo.html", desc: "Recibo após atendimento de solicitação." },
-        { name: "Redefinição de Senha", file: "redefinição-de-senha.html", desc: "Nova senha gerada após solicitação de redefinição." },
-        { name: "Senha a Expirar", file: "Senha-a-expirar.HTML", desc: "Aviso sobre expiração da senha com nível de urgência." },
-        { name: "Solicitação de Assinaturas Lote", file: "solicitação-de-assinaturas-de-documentos-em-lote.html", desc: "Relatório de status de assinaturas em lote." },
-        { name: "Solicitação de Devolução - Urgente", file: "novo2.html", desc: "Solicitação de devolução com prioridade urgente, contendo dados do cliente e objetos." }
-    ];
+    { name: "Arquivos Solicitados", file: "arquivos-solicitados.html", desc: "Notificação quando os arquivos solicitados estão disponíveis para download." },
+    { name: "Avaliação de Solicitação", file: "avaliacao.html", desc: "Convite para avaliar atendimento de solicitação finalizada." },
+    { name: "Código Validação OS - Normal", file: "codigo-validacao-os-normal.html", desc: "Código de segurança para atendimento de solicitação padrão." },
+    { name: "Código Validação OS - Urgente", file: "codigo-validacao-os-urgente.html", desc: "Código de segurança para atendimento com prioridade urgente." },
+    { name: "Itens Compartilhados", file: "itens-compartilhados.html", desc: "Lista de documentos ou itens compartilhados com o usuário." },
+    { name: "Notificação de Transporte", file: "notificação-de-transporte.html", desc: "Informações completas sobre transporte e responsáveis." },
+    { name: "Notificação OS", file: "notificacao_os.html", desc: "Dados detalhados da solicitação e ocorrências." },
+    { name: "Novo Usuário", file: "new-user.html", desc: "Credenciais de acesso para novo usuário cadastrado." },
+    { name: "Prodesp - Dados Solicitação", file: "prodesp.html", desc: "Detalhes de ocorrência para cliente Prodesp." },
+    { name: "Recibo Atendimento (Empréstimo Urgente)", file: "recibo-de-confirmação-recebimento-emprestimo-urgente.html", desc: "Recibo para atendimento urgente de empréstimo." },
+    { name: "Recibo de Confirmação", file: "novo.html", desc: "Recibo após atendimento de solicitação." },
+    { name: "Redefinição de Senha", file: "redefinição-de-senha.html", desc: "Nova senha gerada após solicitação de redefinição." },
+    { name: "Relatório de Assinaturas", file: "rel-assinaturas.html", desc: "Relatório com documentos assinados digitalmente conforme ICP-Brasil, contendo dados do processo, validações e lista de signatários." },
+    { name: "Senha a Expirar", file: "Senha-a-expirar.HTML", desc: "Aviso sobre expiração da senha com nível de urgência." },
+    { name: "Solicitação de Assinaturas Lote", file: "solicitação-de-assinaturas-de-documentos-em-lote.html", desc: "Relatório de status de assinaturas em lote." },
+    { name: "Solicitação de Devolução - Urgente", file: "novo2.html", desc: "Solicitação de devolução com prioridade urgente, contendo dados do cliente e objetos." }
+];
 
         templates.sort((a, b) => a.name.localeCompare(b.name));
 
