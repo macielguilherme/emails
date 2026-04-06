@@ -1,0 +1,411 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Relatório de Assinaturas - DocZ</title>
+    <style>
+        /* Reset básico */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            background-color: #eef3f6;
+            padding: 2rem;
+        }
+
+        .email-template {
+            width: 600px;
+            max-width: 100%;
+            border-radius: 12px;
+            overflow: hidden;
+            color: #1f3349;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+            background-color: #ffffff;
+        }
+
+        /* Header */
+        .email-header {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 40px 40px;
+            background: linear-gradient(135deg, #000a69 0%, #1a1a7e 100%);
+        }
+
+        .email-header img {
+            max-height: 48px;
+            display: block;
+        }
+
+        /* Main */
+        .email-main {
+            padding: 40px 40px 32px 40px;
+            background-color: #ffffff;
+        }
+
+        /* Títulos */
+        .email-title {
+            font-size: 24px;
+            font-weight: 700;
+            line-height: 1.3;
+            color: #1f3349;
+            margin-bottom: 8px;
+        }
+
+        .section-title {
+            font-size: 18px;
+            font-weight: 700;
+            color: #1f3349;
+            margin: 24px 0 12px 0;
+            padding-bottom: 6px;
+            border-bottom: 2px solid #e2e8f0;
+        }
+
+        .section-title:first-of-type {
+            margin-top: 0;
+        }
+
+        /* Texto padrão */
+        .text-content {
+            font-size: 15px;
+            line-height: 1.6;
+            color: #1f3349;
+            margin-bottom: 16px;
+        }
+
+        .text-content strong {
+            font-weight: 700;
+        }
+
+        /* Linhas de dados */
+        .data-line {
+            font-size: 15px;
+            line-height: 1.6;
+            color: #1f3349;
+            margin-bottom: 4px;
+        }
+
+        .data-line strong {
+            font-weight: 700;
+        }
+
+        /* Documentos */
+        .documento-block {
+            margin-bottom: 20px;
+        }
+
+        .documento-titulo {
+            font-weight: 700;
+            font-size: 15px;
+            color: #1f3349;
+            margin-bottom: 4px;
+        }
+
+        .documento-detalhe {
+            font-size: 15px;
+            line-height: 1.6;
+            color: #1f3349;
+            margin-left: 16px;
+            margin-bottom: 4px;
+        }
+
+        .assinatura-item {
+            font-size: 15px;
+            line-height: 1.6;
+            color: #1f3349;
+            margin-left: 32px;
+            margin-bottom: 2px;
+        }
+
+        /* Divider */
+        .divider {
+            height: 1px;
+            background-color: #e2e8f0;
+            margin: 20px 0;
+        }
+
+        /* Footer do documento */
+        .document-footer {
+            margin-top: 24px;
+            font-size: 13px;
+            color: #64748b;
+            text-align: center;
+            font-style: italic;
+        }
+
+        /* Email Footer */
+        .email-footer {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 32px 40px;
+            background: linear-gradient(135deg, #000a69 0%, #1a1a7e 100%);
+        }
+
+        .footer-content {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            max-width: 560px;
+            margin: 0 auto;
+        }
+
+        .footer-content img {
+            width: 100px;
+            display: block;
+            margin-bottom: 8px;
+        }
+
+        .footer-divider {
+            width: 60px;
+            height: 1px;
+            margin: 8px 0;
+            background-color: rgba(255, 255, 255, 0.25);
+        }
+
+        .footer-text {
+            font-size: 12px;
+            text-align: center;
+            color: rgba(255, 255, 255, 0.75);
+            margin: 4px 0;
+        }
+
+        .footer-contact {
+            color: #ffffff;
+            text-decoration: none;
+            font-size: 13px;
+            margin-top: 6px;
+        }
+
+        .footer-contact:hover {
+            text-decoration: underline;
+            opacity: 0.9;
+        }
+
+        /* Mobile */
+        .desktop-text {
+            display: block;
+        }
+
+        .mobile-text {
+            display: none;
+        }
+
+        @media screen and (max-width: 600px) {
+            body {
+                padding: 0;
+                background-color: #ffffff;
+            }
+
+            .email-template {
+                width: 100%;
+                border-radius: 0;
+                box-shadow: none;
+            }
+
+            .email-header {
+                padding: 24px 20px;
+            }
+
+            .email-header img {
+                max-height: 36px;
+            }
+
+            .email-main {
+                padding: 24px 20px;
+            }
+
+            .email-title {
+                font-size: 20px;
+            }
+
+            .section-title {
+                font-size: 16px;
+                margin: 20px 0 10px 0;
+            }
+
+            .text-content,
+            .data-line,
+            .documento-titulo,
+            .documento-detalhe,
+            .assinatura-item {
+                font-size: 14px;
+            }
+
+            .assinatura-item {
+                margin-left: 24px;
+            }
+
+            .documento-detalhe {
+                margin-left: 12px;
+            }
+
+            .email-footer {
+                padding: 24px 20px;
+            }
+
+            .desktop-text {
+                display: none;
+            }
+
+            .mobile-text {
+                display: block;
+            }
+        }
+
+        /* Dark Mode */
+        @media (prefers-color-scheme: dark) {
+            body {
+                background-color: #0f172a;
+            }
+
+            .email-template {
+                background: #0f172a;
+                border: 1px solid #334155;
+                box-shadow: none;
+            }
+
+            .email-main {
+                background-color: #0f172a;
+            }
+
+            .email-title {
+                color: #f1f5f9;
+            }
+
+            .section-title {
+                color: #e2e8f0;
+                border-bottom-color: #475569;
+            }
+
+            .text-content,
+            .data-line,
+            .documento-titulo,
+            .documento-detalhe,
+            .assinatura-item {
+                color: #e2e8f0;
+            }
+
+            .divider {
+                background-color: #475569;
+            }
+
+            .document-footer {
+                color: #94a3b8;
+            }
+
+            .email-header,
+            .email-footer {
+                background: linear-gradient(135deg, #1e293b 0%, #334155 100%);
+            }
+
+            .footer-text {
+                color: rgba(255, 255, 255, 0.7);
+            }
+
+            .footer-contact {
+                color: #ffffff;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="email-template">
+        <!-- Header -->
+        <header class="email-header">
+            <img src="Logo-docz.png" alt="DocZ">
+        </header>
+
+        <!-- Main Content -->
+        <main class="email-main">
+            <!-- Título principal -->
+            <div class="email-title">RELATÓRIO DE ASSINATURAS Nº 000154</div>
+
+            <!-- Dados da empresa e processo -->
+            <div class="text-content">
+                <strong>DOCZ TECNOLOGIA DA INFORMAÇÃO</strong><br>
+                CNPJ: 00.000.000/0001-00
+            </div>
+
+            <div class="text-content">
+                <strong>Processo:</strong> 27211.003156/1936-53<br>
+                <strong>Volume:</strong> 128<br>
+                <strong>Anexo:</strong> 0
+            </div>
+
+            <div class="text-content">
+                <strong>Interessado(s):</strong> CARBONÍFERA CATARINENSE LTDA<br>
+                <strong>Assunto:</strong> Identificação e apuração de denúncias de extração ilegal<br>
+                <strong>Classificação:</strong> Identificação e apuração de denúncias de extração ilegal
+            </div>
+
+            <!-- Texto ICP-Brasil -->
+            <div class="text-content">
+                Os documentos a seguir foram assinados digitalmente de acordo com a ICP-Brasil, MP 2.200-2/2001, no sistema certificado SBIS nº XXX-Y. A lista abaixo indica o número do documento e seus signatários.
+            </div>
+
+            <!-- Seção: DADOS DA GERAÇÃO DO RELATÓRIO -->
+            <div class="section-title">DADOS DA GERAÇÃO DO RELATÓRIO</div>
+
+            <div class="data-line"><strong>Data/hora da validação:</strong> 30/03/2026 15:32:15 -03:00</div>
+            <div class="data-line"><strong>Sistema emissor:</strong> Docz</div>
+            <div class="data-line"><strong>Quantidade de documentos validados:</strong> 3</div>
+            <div class="data-line"><strong>Quantidade total de assinaturas validadas:</strong> 5</div>
+            <div class="data-line"><strong>Código/ID da emissão:</strong> REL-ASS-20260330-000154</div>
+
+            <!-- Seção: DOCUMENTOS ASSINADOS DIGITALMENTE -->
+            <div class="section-title">DOCUMENTOS ASSINADOS DIGITALMENTE</div>
+
+            <!-- Documento 1 -->
+            <div class="documento-block">
+                <div class="documento-titulo">1. Documento: 19506185</div>
+                <div class="documento-detalhe">Páginas: 1 a 9</div>
+                <div class="assinatura-item">Assinado por: João da Silva, às 14:10 -03:00 de 30/03/2026. Estado da assinatura: Válida.</div>
+                <div class="assinatura-item">Assinado por: Maria Oliveira, às 14:22 -03:00 de 30/03/2026. Estado da assinatura: Válida.</div>
+            </div>
+
+            <!-- Documento 2 -->
+            <div class="documento-block">
+                <div class="documento-titulo">2. Documento: 19506385</div>
+                <div class="documento-detalhe">Páginas: 10 a 17</div>
+                <div class="assinatura-item">Assinado por: Carlos Pereira, às 14:41 -03:00 de 30/03/2026. Estado da assinatura: Válida.</div>
+            </div>
+
+            <!-- Documento 3 -->
+            <div class="documento-block">
+                <div class="documento-titulo">3. Documento: 19506531</div>
+                <div class="documento-detalhe">Páginas: 18 a 28</div>
+                <div class="assinatura-item">Assinado por: Ana Souza, às 15:02 -03:00 de 30/03/2026. Estado da assinatura: Válida.</div>
+                <div class="assinatura-item">Assinado por: Roberto Lima, às 15:05 -03:00 de 30/03/2026. Estado da assinatura: Válida.</div>
+            </div>
+
+            <div class="divider"></div>
+
+            <!-- Rodapé do documento -->
+            <div class="document-footer">
+                Documento criado eletronicamente e emitido pelo Docz em 30/03/2026, às 15:32:15, conforme horário oficial de Brasília.
+            </div>
+        </main>
+
+        <!-- Footer -->
+        <footer class="email-footer">
+            <div class="footer-content">
+                <img src="logo-sosdocs-branca.png" alt="SosDocs">
+                <div class="footer-divider"></div>
+                <p class="footer-text desktop-text">Este é um e-mail automático do sistema de segurança.</p>
+                <p class="footer-text mobile-text">E-mail automático do sistema.</p>
+                <p class="footer-text desktop-text">Dúvidas? Entre em contato:</p>
+                <p class="footer-text mobile-text">Dúvidas? Contato:</p>
+                <a href="mailto:suporte@sosdocs.com" class="footer-contact">suporte@sosdocs.com</a>
+            </div>
+        </footer>
+    </div>
+</body>
+</html>
