@@ -92,7 +92,15 @@
             margin-bottom: 0;
         }
 
-        /* Lista de itens do anexo */
+        /* Link do relatório */
+        .relatorio-link {
+            word-break: break-all;
+            color: #2563eb;
+            text-decoration: underline;
+            font-size: 14px;
+        }
+
+        /* Lista de itens */
         .anexo-list {
             margin: 16px 0 8px 0;
             padding-left: 24px;
@@ -245,6 +253,10 @@
                 color: #e2e8f0;
             }
 
+            .relatorio-link {
+                color: #818cf8;
+            }
+
             .main-button .btn {
                 background: linear-gradient(135deg, #1e293b 0%, #334155 100%);
             }
@@ -282,9 +294,15 @@
                     Conforme solicitado, o sistema aplicou as novas regras de classificação aos documentos impactados e gerou automaticamente um relatório detalhado com as alterações realizadas.
                 </p>
 
-                <!-- Card com informações do anexo -->
+                <!-- Card com link do relatório -->
                 <div class="info-card">
-                    <p><strong>Em anexo, você encontrará o relatório em formato Excel contendo:</strong></p>
+                    <p><strong>Relatório em formato Excel disponível no link abaixo:</strong></p>
+                    <p>
+                        <a href="https://docs.google.com/spreadsheets/d/1Bg7juNQrlp-sXmRP9vyrXHm2GSR3YvxHg2ONrRzAl6c/edit?gid=0#gid=0" class="relatorio-link" target="_blank">
+                            https://docs.google.com/spreadsheets/d/1Bg7juNQrlp-sXmRP9vyrXHm2GSR3YvxHg2ONrRzAl6c/edit?gid=0#gid=0
+                        </a>
+                    </p>
+                    <p><strong>O relatório contém os seguintes campos:</strong></p>
                     <ul class="anexo-list">
                         <li>Identificador SOS alterada</li>
                         <li>Campo(s) que sofreram alteração</li>
