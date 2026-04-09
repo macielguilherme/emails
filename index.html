@@ -375,6 +375,7 @@
        
        const templates = [
     { name: "Alteração - Reclassificação de Objetos", file: "alteracao.html", desc: "Notificação de conclusão da reclassificação de objetos vinculados à Tabela de Temporalidade, com relatório em Excel das alterações realizadas." },
+    { name: "Alerta de Ocupação de Armazenamento", file: "ocupacao.html", desc: "Notificação automática quando a ocupação de armazenamento de um cliente atinge o limiar configurado, com detalhes de espaço utilizado e percentual de ocupação." },
     { name: "Arquivos Solicitados", file: "arquivos-solicitados.html", desc: "Notificação quando os arquivos solicitados estão disponíveis para download." },
     { name: "Avaliação de Solicitação", file: "avaliacao.html", desc: "Convite para avaliar atendimento de solicitação finalizada." },
     { name: "Código Validação OS - Normal", file: "codigo-validacao-os-normal.html", desc: "Código de segurança para atendimento de solicitação padrão." },
@@ -392,7 +393,7 @@
     { name: "Solicitação de Assinaturas Lote", file: "solicitação-de-assinaturas-de-documentos-em-lote.html", desc: "Relatório de status de assinaturas em lote." },
     { name: "Solicitação de Devolução - Urgente", file: "novo2.html", desc: "Solicitação de devolução com prioridade urgente, contendo dados do cliente e objetos." }
 ];
-
+        
         templates.sort((a, b) => a.name.localeCompare(b.name));
 
         function getEnvelopeIcon() {
