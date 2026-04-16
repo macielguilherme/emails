@@ -158,18 +158,18 @@
             margin: 8px auto;
         }
 
-        .footer-subtext {
+        .footer-text {
+            color: rgba(255, 255, 255, 0.8);
+            font-size: 13px;
+            margin: 8px 0;
+            line-height: 1.5;
+        }
+
+        .footer-text-small {
+            color: rgba(255, 255, 255, 0.6);
+            font-size: 12px;
             margin: 4px 0;
-        }
-
-        .footer-contact {
-            color: #fff;
-            text-decoration: none;
-        }
-
-        .footer-contact:hover {
-            color: rgb(173, 173, 173);
-            text-decoration: underline;
+            line-height: 1.4;
         }
 
         /* Desktop/Mobile */
@@ -226,6 +226,14 @@
                 font-size: 12px !important;
             }
 
+            .footer-text {
+                font-size: 11px;
+            }
+
+            .footer-text-small {
+                font-size: 10px;
+            }
+
             .desktop-text {
                 display: none !important;
             }
@@ -278,10 +286,6 @@
             .alternative-link a {
                 color: #94a3b8;
             }
-
-            .footer-contact {
-                color: rgba(255, 255, 255, 0.8);
-            }
         }
     </style>
 </head>
@@ -297,11 +301,11 @@
             <h1 class="email-title">Falha no Processamento de Relatório</h1>
 
             <div style="max-width:480px; margin:0 auto;">
-                <p class="info-text desktop-text">Prezado(a) <strong>[Nome do Usuário]</strong>,</p>
-                <p class="info-text mobile-text">Prezado(a) <strong>[Nome do Usuário]</strong>,</p>
+                <p class="info-text desktop-text">Prezado(a) <strong>{Nome do Usuário}</strong>,</p>
+                <p class="info-text mobile-text">Prezado(a) <strong>{Nome do Usuário}</strong>,</p>
 
                 <p class="info-text">
-                    Identificamos uma falha ao processar sua solicitação de Relatório na Central de Downloads, solicitada em: <strong>[Data e Hora da Solicitação do Relatório]</strong>
+                    Identificamos uma falha ao processar sua solicitação de Relatório na Central de Downloads, solicitada em: <strong>{Data e Hora da Solicitação do Relatório}</strong>
                 </p>
 
                 <!-- Card com informações -->
@@ -317,14 +321,6 @@
 
                 <p class="info-text">
                     Por favor, tente refazer a emissão do Relatório. Se o problema persistir, entre em contato com o suporte técnico.
-                </p>
-
-                <p class="info-text">
-                    Este é um e-mail de notificação e não deve ser respondido.
-                </p>
-
-                <p class="info-text" style="margin-top: 24px;">
-                    E-mail criado eletronicamente por SIGAD, em 05/09/2024, às 11:26:20, conforme horário oficial de Brasília.
                 </p>
 
                 <!-- Botão -->
@@ -345,11 +341,8 @@
         <div class="email-footer">
             <img src="logo-sosdocs-branca.png" alt="SosDocs Logo">
             <div class="divider"></div>
-            <p class="desktop-text">Este é um e-mail automático do sistema de segurança.</p>
-            <p class="mobile-text">E-mail automático do sistema.</p>
-            <p class="footer-subtext desktop-text">Dúvidas? Entre em contato:</p>
-            <p class="footer-subtext mobile-text">Dúvidas? Contato:</p>
-            <a href="mailto:suporte@sosdocs.com" class="footer-contact">suporte@sosdocs.com</a>
+            <p class="footer-text">Este é um e-mail de notificação e não deve ser respondido.</p>
+            <p class="footer-text-small">E-mail criado eletronicamente por SIGAD, em {Data de Criação}, às {Horário de Criação}, conforme horário oficial de Brasília.</p>
         </div>
     </div>
 </body>
