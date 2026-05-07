@@ -1,0 +1,586 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Notificação de Prazo de Guarda - DocZ</title>
+    <style>
+        /* Reset básico */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            background-color: #eef3f6;
+            color: #1f3349;
+            padding: 2rem;
+            display: flex;
+            justify-content: center;
+        }
+
+        .email-template {
+            width: 800px;
+            border-radius: .5rem;
+            overflow: hidden;
+            background-color: #ffffff;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.06);
+        }
+
+        /* Header/Footer */
+        .email-header,
+        .email-footer {
+            padding: 48px 40px;
+            text-align: center;
+            background: linear-gradient(135deg, #000a69 0%, #1a1a7e 100%);
+        }
+
+        .email-footer p,
+        .email-footer a {
+            color: #ffffff;
+        }
+
+        .email-header img {
+            display: block;
+            max-height: 50px;
+            margin: 0 auto;
+        }
+
+        /* Main */
+        .email-main {
+            padding: 48px 40px;
+            text-align: left;
+        }
+
+        .email-title {
+            font-size: 26px;
+            font-weight: 600;
+            margin-bottom: 20px;
+            line-height: 1.3;
+            color: #1f3349;
+            text-align: center;
+        }
+
+        .info-text {
+            font-size: 15px;
+            color: #1f3349;
+            margin: 0 0 16px 0;
+            line-height: 1.6;
+        }
+
+        /* Card de informações */
+        .info-card {
+            width: 100%;
+            border: 1px solid #e2e8f0;
+            border-radius: 12px;
+            background-color: #f8fafc;
+            padding: 20px;
+            margin: 20px 0;
+        }
+
+        .resumo-item {
+            display: flex;
+            padding: 8px 0;
+            border-bottom: 1px solid #e2e8f0;
+        }
+
+        .resumo-item:last-child {
+            border-bottom: none;
+        }
+
+        .resumo-label {
+            font-weight: 600;
+            width: 180px;
+            font-size: 14px;
+        }
+
+        .resumo-valor {
+            font-weight: 600;
+            color: #000a69;
+            font-size: 14px;
+        }
+
+        /* Tabela do relatório detalhado */
+        .report-container {
+            margin: 16px 0 8px 0;
+            overflow-x: auto;
+            border: 1px solid #e2e8f0;
+            border-radius: 8px;
+        }
+
+        .report-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 12px;
+            min-width: 750px;
+        }
+
+        .report-table th {
+            background-color: #eef2f6;
+            color: #1f3349;
+            font-weight: 700;
+            padding: 10px 8px;
+            text-align: left;
+            border-bottom: 1px solid #cbd5e1;
+            font-size: 11px;
+            white-space: nowrap;
+        }
+
+        .report-table td {
+            padding: 8px;
+            border-bottom: 1px solid #e2e8f0;
+            color: #1f3349;
+            vertical-align: top;
+            font-size: 12px;
+        }
+
+        .report-table tr:last-child td {
+            border-bottom: none;
+        }
+
+        .report-table tr:hover {
+            background-color: #f1f5f9;
+        }
+
+        .status-vencido {
+            color: #dc2626;
+            font-weight: 600;
+        }
+
+        .status-proximo {
+            color: #e67e22;
+            font-weight: 600;
+        }
+
+        .status-normal {
+            color: #10b981;
+        }
+
+        .sigilo-vazio {
+            color: #94a3b8;
+            font-style: italic;
+        }
+
+        .attachment-badge {
+            background-color: #eef2ff;
+            border: 1px solid #c7d2fe;
+            border-radius: 8px;
+            padding: 10px 16px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 13px;
+            font-weight: 500;
+            color: #000a69;
+            margin: 16px 0;
+        }
+
+        .badge-icon {
+            font-weight: 700;
+            font-size: 16px;
+        }
+
+        /* Botão */
+        .main-button .btn {
+            display: block;
+            width: 100%;
+            text-align: center;
+            background: linear-gradient(135deg, #000a69 0%, #1a1a7e 100%);
+            color: #ffffff;
+            text-decoration: none;
+            border-radius: 8px;
+            padding: 14px 0;
+            font-size: 15px;
+            font-weight: 600;
+            box-shadow: 0 4px 12px rgba(0, 10, 105, 0.25);
+            margin: 28px 0 16px 0;
+        }
+
+        /* Link alternativo */
+        .alternative-link {
+            text-align: center;
+            padding: 16px 0;
+        }
+
+        .alternative-link a {
+            color: #475569;
+            text-decoration-color: #cbd5e1;
+            display: inline-block;
+            font-size: 13px;
+        }
+
+        /* Footer */
+        .email-footer img {
+            display: block;
+            margin: 0 auto 4px auto;
+            width: 110px;
+        }
+
+        .divider {
+            width: 80px;
+            height: 1px;
+            background-color: rgba(255, 255, 255, 0.2);
+            margin: 8px auto;
+        }
+
+        .footer-subtext {
+            margin: 4px 0;
+            font-size: 13px;
+        }
+
+        .footer-contact {
+            color: #fff;
+            text-decoration: none;
+            font-size: 13px;
+        }
+
+        .footer-contact:hover {
+            color: rgb(173, 173, 173);
+            text-decoration: underline;
+        }
+
+        .nota-rodape {
+            font-size: 11px;
+            color: #64748b;
+            margin-top: 12px;
+            text-align: center;
+            border-top: 1px solid #e2e8f0;
+            padding-top: 16px;
+        }
+
+        /* Desktop/Mobile */
+        .desktop-text {
+            display: block;
+        }
+
+        .mobile-text {
+            display: none;
+        }
+
+        @media screen and (max-width: 680px) {
+            .email-template {
+                width: 100% !important;
+            }
+
+            .email-header,
+            .email-footer {
+                padding: 24px 20px !important;
+            }
+
+            .email-header img {
+                max-height: 32px !important;
+            }
+
+            .email-main {
+                padding: 24px 20px !important;
+            }
+
+            .email-title {
+                font-size: 20px !important;
+            }
+
+            .info-card {
+                padding: 12px !important;
+            }
+
+            .resumo-label {
+                width: 140px;
+                font-size: 12px;
+            }
+
+            .resumo-valor {
+                font-size: 12px;
+            }
+
+            .main-button .btn {
+                padding: 12px 24px !important;
+                font-size: 13px !important;
+            }
+
+            .desktop-text {
+                display: none !important;
+            }
+
+            .mobile-text {
+                display: block !important;
+            }
+
+            .report-table th,
+            .report-table td {
+                font-size: 10px;
+                padding: 6px 4px;
+            }
+        }
+
+        /* Dark Mode */
+        @media (prefers-color-scheme: dark) {
+            body {
+                background: #0f172a;
+            }
+
+            .email-title {
+                color: #f1f5f9;
+            }
+
+            .email-template {
+                background: #0f172a;
+                color: #e2e8f0;
+                border: 1px solid #374151;
+            }
+
+            .email-header,
+            .email-footer {
+                background: linear-gradient(135deg, #1e293b 0%, #334155 100%);
+            }
+
+            .info-card {
+                background-color: #1e293b;
+                border-color: #475569;
+            }
+
+            .info-text {
+                color: #e2e8f0 !important;
+            }
+
+            .resumo-item {
+                border-bottom-color: #475569;
+            }
+
+            .resumo-valor {
+                color: #a5b4fc;
+            }
+
+            .report-container {
+                border-color: #475569;
+            }
+
+            .report-table th {
+                background-color: #0f172a;
+                color: #f1f5f9;
+                border-bottom-color: #475569;
+            }
+
+            .report-table td {
+                color: #cbd5e6;
+                border-bottom-color: #334155;
+            }
+
+            .report-table tr:hover {
+                background-color: #1e293b;
+            }
+
+            .attachment-badge {
+                background-color: #1e293b;
+                border-color: #475569;
+                color: #a5b4fc;
+            }
+
+            .main-button .btn {
+                background: linear-gradient(135deg, #1e293b 0%, #334155 100%);
+            }
+
+            .alternative-link a {
+                color: #94a3b8;
+            }
+
+            .footer-contact {
+                color: rgba(255, 255, 255, 0.8);
+            }
+
+            .nota-rodape {
+                color: #94a3b8;
+                border-top-color: #334155;
+            }
+
+            .status-vencido {
+                color: #f87171;
+            }
+
+            .status-proximo {
+                color: #fbbf24;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="email-template">
+        <!-- Header -->
+        <div class="email-header">
+            <img src="Logo-docz.png" alt="Logo DocZ">
+        </div>
+
+        <!-- Main Content -->
+        <div class="email-main">
+            <h1 class="email-title">Notificação de Prazo de Guarda Próximo do Vencimento</h1>
+
+            <div>
+                <p class="info-text desktop-text">Prezado(a),</p>
+                <p class="info-text mobile-text">Prezado(a),</p>
+
+                <p class="info-text">
+                    Foram identificados documentos no projeto <strong>{Nome do Projeto}</strong> com prazo de guarda próximo do vencimento ou já vencidos, conforme parametrização definida no sistema <strong>DocZ</strong>.
+                </p>
+
+                <!-- Aviso de anexo com relatório detalhado -->
+                <div class="attachment-badge">
+                    <span class="badge-icon">ANEXO</span>
+                    <span>Relatório detalhado em anexo: <strong>relatorio_documentos_prazo_guarda.csv</strong> - Contém todos os {Quantidade} documentos listados abaixo.</span>
+                </div>
+
+                <!-- Card com resumo do alerta -->
+                <div class="info-card">
+                    <div class="resumo-item">
+                        <div class="resumo-label">Quantidade de documentos:</div>
+                        <div class="resumo-valor">{Quantidade} documentos</div>
+                    </div>
+                    <div class="resumo-item">
+                        <div class="resumo-label">Período(s) configurado(s):</div>
+                        <div class="resumo-valor">{Intervalos configurados}</div>
+                    </div>
+                    <div class="resumo-item">
+                        <div class="resumo-label">Data da verificação:</div>
+                        <div class="resumo-valor">{Data e hora do envio}</div>
+                    </div>
+                </div>
+
+                <!-- Relatório detalhado baseado na tabela do pop-up com DATA DE DESTINAÇÃO -->
+                <p class="info-text" style="font-weight: 600; margin-bottom: 8px;">Relatório detalhado dos documentos</p>
+                <p class="info-text" style="font-size: 13px; color: #475569; margin-bottom: 12px;">Mesmas informações exibidas no pop-up de notificação do sistema.</p>
+
+                <div class="report-container">
+                    <table class="report-table">
+                        <thead>
+                            <tr>
+                                <th>Objeto</th>
+                                <th>Localização</th>
+                                <th>Status</th>
+                                <th>Classificações</th>
+                                <th>Sigilo</th>
+                                <th>Controle Prazos de Guarda</th>
+                                <th>Destinação Final</th>
+                                <th>Data de Destinação</th>
+                                <th>Observações</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <!-- Exemplo baseado na estrutura real do sistema com DATA DE DESTINAÇÃO -->
+                            <tr>
+                                <td>DC99999A0041340SOS</td>
+                                <td>CB9999900006955SOS</td>
+                                <td><span class="status-vencido">ARQUIVADO</span></td>
+                                <td>003.2 | AÇÃO PREVENTIVA</td>
+                                <td class="sigilo-vazio">(vazio)</td>
+                                <td><span class="status-vencido">Prazo vencido</span></td>
+                                <td>-</td>
+                                <td>15/03/2024</td>
+                                <td>-</td>
+                            </tr>
+                            <tr>
+                                <td>DC88123B0056789XYZ</td>
+                                <td>CB4455600012345ABC</td>
+                                <td>EM ARQUIVO</td>
+                                <td>001.1 | ADMINISTRATIVO</td>
+                                <td class="sigilo-vazio">(vazio)</td>
+                                <td><span class="status-proximo">Próximo ao vencimento (30 dias)</span></td>
+                                <td>ELIMINAÇÃO</td>
+                                <td>-</td>
+                                <td>-</td>
+                            </tr>
+                            <tr>
+                                <td>DC77123C0098765DEF</td>
+                                <td>CB7788900076543GHI</td>
+                                <td>EM ARQUIVO</td>
+                                <td>002.3 | FISCAL</td>
+                                <td>CONFIDENCIAL</td>
+                                <td><span class="status-proximo">Próximo ao vencimento (15 dias)</span></td>
+                                <td>GUARDA PERMANENTE</td>
+                                <td>-</td>
+                                <td>Documento fiscal 2020</td>
+                            </tr>
+                            <tr>
+                                <td>DC55432D0012345JKL</td>
+                                <td>CB1122300033221MNO</td>
+                                <td>ARQUIVADO</td>
+                                <td>003.5 | TRABALHISTA</td>
+                                <td class="sigilo-vazio">(vazio)</td>
+                                <td><span class="status-vencido">Prazo vencido (180 dias)</span></td>
+                                <td>ELIMINAÇÃO</td>
+                                <td>10/10/2023</td>
+                                <td>Aguardando autorização</td>
+                            </tr>
+                            <tr>
+                                <td>DC99876E0023456PQR</td>
+                                <td>CB5566700087654STU</td>
+                                <td>EM ARQUIVO</td>
+                                <td>001.2 | CONTRATOS</td>
+                                <td>RESTRITO</td>
+                                <td><span class="status-proximo">Próximo ao vencimento (45 dias)</span></td>
+                                <td>GUARDA PERMANENTE</td>
+                                <td>-</td>
+                                <td>Contrato vigente</td>
+                            </tr>
+                            <tr>
+                                <td>DC44556F0067890VWX</td>
+                                <td>CB9988700012345YZA</td>
+                                <td>ARQUIVADO</td>
+                                <td>004.1 | RECURSOS HUMANOS</td>
+                                <td class="sigilo-vazio">(vazio)</td>
+                                <td><span class="status-vencido">Prazo vencido (90 dias)</span></td>
+                                <td>ELIMINAÇÃO</td>
+                                <td>05/12/2023</td>
+                                <td>Prontuário de ex-funcionário</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <p class="info-text" style="font-size: 12px; color: #64748b; margin-top: 8px;">
+                    * A tabela acima exibe os {Quantidade} documentos identificados. O anexo CSV contém a listagem completa com todos os campos para análise, incluindo a Data de Destinação.
+                </p>
+
+                <p class="info-text" style="margin-top: 20px;">
+                    Para análise detalhada e eventual ação (prorrogação, expurgo ou outra providência), acesse o sistema DocZ e consulte a tela:
+                </p>
+
+                <p class="info-text" style="background-color: #f1f5f9; padding: 12px 16px; border-radius: 8px; font-family: monospace; font-size: 14px; margin: 12px 0;">
+                    Gestão Documental > Monitoramento de Prazo de Guarda
+                </p>
+
+                <p class="info-text" style="margin-top: 20px;">
+                    Atenciosamente,<br>
+                    <strong>Sistema DocZ | SOS Docs</strong>
+                </p>
+
+                <!-- Botão -->
+                <div class="main-button">
+                    <a href="https://docz.sosdocs.com.br/Docz/login" class="btn">Acessar Sistema DocZ</a>
+                </div>
+
+                <!-- Link alternativo -->
+                <div class="alternative-link">
+                    <p class="desktop-text">Ou acesse diretamente em:</p>
+                    <p class="mobile-text">Ou acesse:</p>
+                    <a href="https://docz.sosdocs.com.br/Docz/login">https://docz.sosdocs.com.br/Docz/login</a>
+                </div>
+
+                <div class="nota-rodape">
+                    Este e-mail foi enviado automaticamente pelo sistema com o relatório detalhado anexo. Nao responda esta mensagem.
+                </div>
+            </div>
+        </div>
+
+        <!-- Footer -->
+        <div class="email-footer">
+            <img src="logo-sosdocs-branca.png" alt="SosDocs Logo">
+            <div class="divider"></div>
+            <p class="desktop-text">Sistema DocZ | SOS Docs</p>
+            <p class="mobile-text">DocZ | SOS Docs</p>
+            <p class="footer-subtext desktop-text">Em caso de dúvidas, entre em contato com nossa equipe:</p>
+            <p class="footer-subtext mobile-text">Dúvidas? Contato:</p>
+            <a href="mailto:suporte@sosdocs.com" class="footer-contact">suporte@sosdocs.com</a>
+        </div>
+    </div>
+</body>
+</html>
