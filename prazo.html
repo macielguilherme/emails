@@ -102,67 +102,7 @@
             font-size: 14px;
         }
 
-        /* Tabela do relatório detalhado */
-        .report-container {
-            margin: 16px 0 8px 0;
-            overflow-x: auto;
-            border: 1px solid #e2e8f0;
-            border-radius: 8px;
-        }
-
-        .report-table {
-            width: 100%;
-            border-collapse: collapse;
-            font-size: 12px;
-            min-width: 750px;
-        }
-
-        .report-table th {
-            background-color: #eef2f6;
-            color: #1f3349;
-            font-weight: 700;
-            padding: 10px 8px;
-            text-align: left;
-            border-bottom: 1px solid #cbd5e1;
-            font-size: 11px;
-            white-space: nowrap;
-        }
-
-        .report-table td {
-            padding: 8px;
-            border-bottom: 1px solid #e2e8f0;
-            color: #1f3349;
-            vertical-align: top;
-            font-size: 12px;
-        }
-
-        .report-table tr:last-child td {
-            border-bottom: none;
-        }
-
-        .report-table tr:hover {
-            background-color: #f1f5f9;
-        }
-
-        .status-vencido {
-            color: #dc2626;
-            font-weight: 600;
-        }
-
-        .status-proximo {
-            color: #e67e22;
-            font-weight: 600;
-        }
-
-        .status-normal {
-            color: #10b981;
-        }
-
-        .sigilo-vazio {
-            color: #94a3b8;
-            font-style: italic;
-        }
-
+        /* Aviso de anexo */
         .attachment-badge {
             background-color: #eef2ff;
             border: 1px solid #c7d2fe;
@@ -306,12 +246,6 @@
             .mobile-text {
                 display: block !important;
             }
-
-            .report-table th,
-            .report-table td {
-                font-size: 10px;
-                padding: 6px 4px;
-            }
         }
 
         /* Dark Mode */
@@ -352,25 +286,6 @@
                 color: #a5b4fc;
             }
 
-            .report-container {
-                border-color: #475569;
-            }
-
-            .report-table th {
-                background-color: #0f172a;
-                color: #f1f5f9;
-                border-bottom-color: #475569;
-            }
-
-            .report-table td {
-                color: #cbd5e6;
-                border-bottom-color: #334155;
-            }
-
-            .report-table tr:hover {
-                background-color: #1e293b;
-            }
-
             .attachment-badge {
                 background-color: #1e293b;
                 border-color: #475569;
@@ -392,14 +307,6 @@
             .nota-rodape {
                 color: #94a3b8;
                 border-top-color: #334155;
-            }
-
-            .status-vencido {
-                color: #f87171;
-            }
-
-            .status-proximo {
-                color: #fbbf24;
             }
         }
     </style>
@@ -426,7 +333,7 @@
                 <!-- Aviso de anexo com relatório detalhado -->
                 <div class="attachment-badge">
                     <span class="badge-icon">ANEXO</span>
-                    <span>Relatório detalhado em anexo: <strong>relatorio_documentos_prazo_guarda.csv</strong> - Contém todos os {Quantidade} documentos listados abaixo.</span>
+                    <span>Relatório detalhado em anexo: <strong>relatorio_documentos_prazo_guarda.csv</strong> - Contém todos os {Quantidade} documentos identificados com suas respectivas informações, incluindo a Data de Destinação.</span>
                 </div>
 
                 <!-- Card com resumo do alerta -->
@@ -444,101 +351,6 @@
                         <div class="resumo-valor">{Data e hora do envio}</div>
                     </div>
                 </div>
-
-                <!-- Relatório detalhado baseado na tabela do pop-up com DATA DE DESTINAÇÃO -->
-                <p class="info-text" style="font-weight: 600; margin-bottom: 8px;">Relatório detalhado dos documentos</p>
-                <p class="info-text" style="font-size: 13px; color: #475569; margin-bottom: 12px;">Mesmas informações exibidas no pop-up de notificação do sistema.</p>
-
-                <div class="report-container">
-                    <table class="report-table">
-                        <thead>
-                            <tr>
-                                <th>Objeto</th>
-                                <th>Localização</th>
-                                <th>Status</th>
-                                <th>Classificações</th>
-                                <th>Sigilo</th>
-                                <th>Controle Prazos de Guarda</th>
-                                <th>Destinação Final</th>
-                                <th>Data de Destinação</th>
-                                <th>Observações</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <!-- Exemplo baseado na estrutura real do sistema com DATA DE DESTINAÇÃO -->
-                            <tr>
-                                <td>DC99999A0041340SOS</td>
-                                <td>CB9999900006955SOS</td>
-                                <td><span class="status-vencido">ARQUIVADO</span></td>
-                                <td>003.2 | AÇÃO PREVENTIVA</td>
-                                <td class="sigilo-vazio">(vazio)</td>
-                                <td><span class="status-vencido">Prazo vencido</span></td>
-                                <td>-</td>
-                                <td>15/03/2024</td>
-                                <td>-</td>
-                            </tr>
-                            <tr>
-                                <td>DC88123B0056789XYZ</td>
-                                <td>CB4455600012345ABC</td>
-                                <td>EM ARQUIVO</td>
-                                <td>001.1 | ADMINISTRATIVO</td>
-                                <td class="sigilo-vazio">(vazio)</td>
-                                <td><span class="status-proximo">Próximo ao vencimento (30 dias)</span></td>
-                                <td>ELIMINAÇÃO</td>
-                                <td>-</td>
-                                <td>-</td>
-                            </tr>
-                            <tr>
-                                <td>DC77123C0098765DEF</td>
-                                <td>CB7788900076543GHI</td>
-                                <td>EM ARQUIVO</td>
-                                <td>002.3 | FISCAL</td>
-                                <td>CONFIDENCIAL</td>
-                                <td><span class="status-proximo">Próximo ao vencimento (15 dias)</span></td>
-                                <td>GUARDA PERMANENTE</td>
-                                <td>-</td>
-                                <td>Documento fiscal 2020</td>
-                            </tr>
-                            <tr>
-                                <td>DC55432D0012345JKL</td>
-                                <td>CB1122300033221MNO</td>
-                                <td>ARQUIVADO</td>
-                                <td>003.5 | TRABALHISTA</td>
-                                <td class="sigilo-vazio">(vazio)</td>
-                                <td><span class="status-vencido">Prazo vencido (180 dias)</span></td>
-                                <td>ELIMINAÇÃO</td>
-                                <td>10/10/2023</td>
-                                <td>Aguardando autorização</td>
-                            </tr>
-                            <tr>
-                                <td>DC99876E0023456PQR</td>
-                                <td>CB5566700087654STU</td>
-                                <td>EM ARQUIVO</td>
-                                <td>001.2 | CONTRATOS</td>
-                                <td>RESTRITO</td>
-                                <td><span class="status-proximo">Próximo ao vencimento (45 dias)</span></td>
-                                <td>GUARDA PERMANENTE</td>
-                                <td>-</td>
-                                <td>Contrato vigente</td>
-                            </tr>
-                            <tr>
-                                <td>DC44556F0067890VWX</td>
-                                <td>CB9988700012345YZA</td>
-                                <td>ARQUIVADO</td>
-                                <td>004.1 | RECURSOS HUMANOS</td>
-                                <td class="sigilo-vazio">(vazio)</td>
-                                <td><span class="status-vencido">Prazo vencido (90 dias)</span></td>
-                                <td>ELIMINAÇÃO</td>
-                                <td>05/12/2023</td>
-                                <td>Prontuário de ex-funcionário</td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
-
-                <p class="info-text" style="font-size: 12px; color: #64748b; margin-top: 8px;">
-                    * A tabela acima exibe os {Quantidade} documentos identificados. O anexo CSV contém a listagem completa com todos os campos para análise, incluindo a Data de Destinação.
-                </p>
 
                 <p class="info-text" style="margin-top: 20px;">
                     Para análise detalhada e eventual ação (prorrogação, expurgo ou outra providência), acesse o sistema DocZ e consulte a tela:
@@ -566,7 +378,7 @@
                 </div>
 
                 <div class="nota-rodape">
-                    Este e-mail foi enviado automaticamente pelo sistema com o relatório detalhado anexo. Nao responda esta mensagem.
+                    Este e-mail foi enviado automaticamente pelo sistema com o relatório detalhado anexo. Não responda esta mensagem.
                 </div>
             </div>
         </div>
