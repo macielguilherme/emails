@@ -114,7 +114,7 @@
 
         .card-label {
             font-weight: 600;
-            width: 180px;
+            width: 200px;
             flex-shrink: 0;
             color: #1f3349;
         }
@@ -275,43 +275,12 @@
             color: #856404;
         }
 
-        /* Resumo de validação */
-        .validation-summary {
-            background-color: #ffffff;
-            border-radius: 8px;
-            padding: 8px 0;
-            margin: 6px 0 0 0;
-            font-size: 13px;
-        }
-
-        .summary-stats {
-            display: flex;
-            gap: 20px;
-            flex-wrap: wrap;
-            margin-top: 8px;
-        }
-
-        .stat-item {
-            display: flex;
-            align-items: baseline;
-            gap: 5px;
-            font-size: 13px;
-        }
-
-        .stat-number {
-            font-weight: 700;
-            font-size: 18px;
+        /* Resumo de validação em texto normal */
+        .validation-summary-text {
+            font-size: 14px;
+            line-height: 1.5;
             color: #1f3349;
         }
-
-        .stat-label {
-            color: #64748b;
-            font-size: 12px;
-        }
-
-        .stat-valid .stat-number { color: #16a34a; }
-        .stat-invalid .stat-number { color: #dc2626; }
-        .stat-indeterminate .stat-number { color: #f97316; }
 
         /* Mobile */
         @media screen and (max-width: 600px) {
@@ -360,14 +329,6 @@
 
             .bottom-footer {
                 padding: 24px 20px;
-            }
-
-            .summary-stats {
-                gap: 12px;
-            }
-
-            .stat-number {
-                font-size: 16px;
             }
         }
 
@@ -457,17 +418,9 @@
                 background: linear-gradient(135deg, #1e293b 0%, #334155 100%);
             }
 
-            .validation-summary {
-                background-color: #0f172a;
+            .validation-summary-text {
+                color: #e2e8f0;
             }
-
-            .stat-number {
-                color: #f1f5f9;
-            }
-
-            .stat-valid .stat-number { color: #4ade80; }
-            .stat-invalid .stat-number { color: #f87171; }
-            .stat-indeterminate .stat-number { color: #fb923c; }
 
             .status-nao-conforme {
                 background-color: #7f1d1d;
@@ -555,31 +508,14 @@
                     <div class="card-label">Status:</div>
                     <div class="card-value">
                         Validação concluída com não conformidades
-                        <span class="status-badge status-nao-conforme">Não conforme</span>
+                       
                     </div>
                 </div>
                 <div class="card-row">
                     <div class="card-label">Resumo:</div>
                     <div class="card-value">
-                        <div class="validation-summary">
-                            <div class="summary-stats">
-                                <div class="stat-item">
-                                    <span class="stat-number">5</span>
-                                    <span class="stat-label">assinaturas analisadas</span>
-                                </div>
-                                <div class="stat-item stat-valid">
-                                    <span class="stat-number">3</span>
-                                    <span class="stat-label">válidas</span>
-                                </div>
-                                <div class="stat-item stat-invalid">
-                                    <span class="stat-number">1</span>
-                                    <span class="stat-label">inválida</span>
-                                </div>
-                                <div class="stat-item stat-indeterminate">
-                                    <span class="stat-number">1</span>
-                                    <span class="stat-label">indeterminada</span>
-                                </div>
-                            </div>
+                        <div class="validation-summary-text">
+                            5 assinaturas analisadas · 3 válidas · 1 inválida · 1 indeterminada
                         </div>
                     </div>
                 </div>
