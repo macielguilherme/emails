@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Termo de Eliminação Documental</title>
+</head>
+
+<body
+    style="margin: 0; padding: 20px; font-family: Arial, sans-serif; background-color: #eef2f7; display: flex; justify-content: center; align-items: center; min-height: 90vh;">
+
+    <div
+        style="width: 100%; max-width: 750px; border: 1px solid #d7dee8; background-color: #ffffff; padding: 0; box-sizing: border-box; overflow: hidden;">
+
+        <!-- Header Azul -->
+        <div
+            style="background: linear-gradient(135deg, #000a69 0%, #1a1a7e 100%); padding: 32px 35px; text-align: center;">
+
+            <img src="Logo-docz.png" alt="DocZ" style="max-width: 140px;">
+
+        </div>
+
+        <!-- Conteúdo -->
+        <div style="padding: 40px 35px 40px 35px;">
+
+            <!-- Cabeçalho -->
+            <div
+                style="text-align: center; font-weight: bold; font-size: 13pt; margin-bottom: 12px; text-transform: uppercase; color: #1f3349;">
+                {{nome_cliente}}
+            </div>
+
+            <div style="text-align: center; font-size: 11pt; margin-bottom: 35px; color: #64748b;">
+                Projeto: {{nome_projeto}}
+            </div>
+
+            <!-- Título -->
+            <div
+                style="text-align: center; font-weight: bold; font-size: 15pt; margin-bottom: 35px; text-transform: uppercase; color: #1f3349; letter-spacing: 0.5px;">
+                TERMO DE ELIMINAÇÃO DOCUMENTAL
+            </div>
+
+            <!-- Card -->
+            <div
+                style="border: 1px solid #e2e8f0; background-color: #f8fafc; border-radius: 12px; padding: 24px; margin-bottom: 35px;">
+
+                <div style="font-size: 11pt; line-height: 2; color: #1f3349;">
+
+                    <div>
+                        <strong>Número do TED:</strong>
+                        {{numero_ted}}
+                    </div>
+
+                    <div>
+                        <strong>Número da O.S:</strong>
+                        {{numero_os}}
+                    </div>
+
+                    <div>
+                        <strong>Data/Hora de Emissão:</strong>
+                        {{data_emissao}}
+                    </div>
+
+                    <div>
+                        <strong>Quantidade de Documentos Eliminados:</strong>
+                        {{quantidade}} documentos
+                    </div>
+
+                    <div>
+                        <strong>Usuário Responsável:</strong>
+                        {{usuario_executor}}
+                    </div>
+
+                </div>
+
+            </div>
+
+            <!-- Corpo -->
+            <div
+                style="text-align: justify; font-size: 11pt; line-height: 1.9; color: #1f3349; text-justify: inter-word;">
+
+                Certificamos, para os devidos fins administrativos, que os documentos vinculados à Ordem de Serviço
+                de Expurgo nº <strong>{{numero_os}}</strong> foram eliminados conforme os critérios de temporalidade,
+                classificação documental e procedimentos internos estabelecidos pelo órgão responsável.
+
+                <br><br>
+
+                A eliminação documental foi executada eletronicamente por meio do sistema DocZ, permanecendo este
+                Termo de Eliminação Documental armazenado como evidência formal, administrativa e auditável da operação
+                realizada.
+
+            </div>
+
+        </div>
+
+    </div>
+
+</body>
+
+</html>
