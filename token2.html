@@ -1,0 +1,406 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Confirmação de Exportação e Exclusão - DocZ</title>
+    <style>
+        /* Reset básico */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            background-color: #ffffff;
+            padding: 2rem;
+        }
+
+        .email-template {
+            width: 600px;
+            border-radius: .5rem;
+            overflow: hidden;
+            color: #1f3349;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, .1);
+            background-color: #ffffff;
+        }
+
+        /* Header/Footer */
+        .email-header,
+        .email-footer {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 48px 40px;
+            background: linear-gradient(135deg, #000a69 0%, #1a1a7e 100%);
+        }
+
+        .email-header img {
+            max-height: 50px;
+            display: block;
+        }
+
+        /* Main Content */
+        .email-main {
+            padding: 48px 40px;
+        }
+
+        .email-title-section {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        .email-title {
+            font-size: 24px;
+            font-weight: 600;
+            line-height: 1.3;
+            color: #1f3349;
+        }
+
+        .salutation {
+            margin-top: 20px;
+            font-size: 16px;
+        }
+
+        .email-subtitle {
+            font-size: 15px;
+            color: #64748b;
+            margin-top: 15px;
+            line-height: 1.5;
+        }
+
+        /* Token destacado */
+        .token-box {
+            margin-top: 32px;
+            background-color: #f8fafc;
+            border: 1px solid #e2e8f0;
+            border-radius: 12px;
+            padding: 32px 24px;
+            text-align: center;
+        }
+
+        .token-box .label {
+            font-size: 11px;
+            color: #64748b;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: 8px;
+        }
+
+        .token-value {
+            font-size: 28px;
+            font-weight: 700;
+            letter-spacing: 3px;
+            color: #000a69;
+            font-family: monospace;
+        }
+
+        .token-validity {
+            font-size: 13px;
+            color: #64748b;
+            margin-top: 12px;
+        }
+
+        /* Dados Grid */
+        .dados-box {
+            margin-top: 32px;
+        }
+
+        .dados-box h3 {
+            font-size: 18px;
+            font-weight: 600;
+            margin-bottom: 16px;
+            color: #1f3349;
+            border-bottom: 1px solid #e2e8f0;
+            padding-bottom: 8px;
+        }
+
+        .dados-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 16px 24px;
+            background-color: #f8fafc;
+            border: 1px solid #e2e8f0;
+            border-radius: 12px;
+            padding: 24px;
+        }
+
+        .label {
+            font-size: 11px;
+            color: #64748b;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: 4px;
+        }
+
+        .value {
+            font-size: 14px;
+            color: #1f3349;
+            font-weight: 600;
+        }
+
+        .full-width {
+            grid-column: 1 / -1;
+        }
+
+        /* Aviso de segurança */
+        .alert-box {
+            margin-top: 20px;
+            background-color: #fef7e0;
+      
+            border-radius: 8px;
+            padding: 16px 20px;
+        }
+
+        .alert-box p {
+            font-size: 14px;
+            color: #1f3349;
+            line-height: 1.5;
+            margin-bottom: 0;
+        }
+
+        /* Botão */
+        .main-button {
+            margin-top: 32px;
+        }
+
+        .btn {
+            display: block;
+            width: 100%;
+            text-align: center;
+            background: linear-gradient(135deg, #000a69 0%, #1a1a7e 100%);
+            color: #ffffff;
+            text-decoration: none;
+            border-radius: 8px;
+            padding: 14px 0;
+            font-size: 15px;
+            font-weight: 600;
+            box-shadow: 0 4px 12px rgba(0, 10, 105, 0.25);
+            transition: opacity 0.2s ease;
+        }
+
+        .btn:hover {
+            opacity: 0.9;
+        }
+
+        .alternative-link {
+            text-align: center;
+            margin-top: 16px;
+            font-size: 13px;
+        }
+
+        .alternative-link a {
+            color: #475569;
+            text-decoration-color: #cbd5e1;
+        }
+
+        .alternative-link a:hover {
+            color: #000a69;
+        }
+
+        /* Footer Info */
+        .footer-content {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+        }
+
+        .footer-content img {
+            width: 110px;
+            margin-bottom: 10px;
+        }
+
+        .footer-divider {
+            width: 60px;
+            height: 1px;
+            background-color: rgba(255, 255, 255, 0.2);
+            margin: 12px 0;
+        }
+
+        .footer-text {
+            color: rgba(255, 255, 255, 0.7);
+            font-size: 12px;
+        }
+
+        .footer-contact {
+            color: #ffffff;
+            text-decoration: none;
+            font-weight: 500;
+            margin-top: 5px;
+        }
+
+        .footer-contact:hover {
+            color: rgb(173, 173, 173);
+            text-decoration: underline;
+        }
+
+        .footer-note {
+            margin-top: 8px;
+            font-size: 11px;
+            color: rgba(255, 255, 255, 0.5);
+        }
+
+        /* Dark Mode Support */
+        @media (prefers-color-scheme: dark) {
+            .email-template {
+                background: #0f172a;
+                color: #e2e8f0;
+                border: 1px solid #374151;
+            }
+
+            .email-header,
+            .email-footer {
+                background: linear-gradient(135deg, #1e293b 0%, #334155 100%);
+            }
+
+            .email-title {
+                color: #f1f5f9;
+            }
+
+            .salutation {
+                color: #e2e8f0;
+            }
+
+            .dados-grid,
+            .token-box {
+                background-color: #1e293b;
+                border-color: #475569;
+            }
+
+            .dados-box h3,
+            .value {
+                color: #f1f5f9;
+            }
+
+            .label {
+                color: #94a3b8;
+            }
+
+            .token-value {
+                color: #a5b4fc;
+            }
+
+            .alert-box {
+                background-color: #2d2a1f;
+                border-left-color: #e67e22;
+            }
+
+            .alert-box p {
+                color: #f1f5f9;
+            }
+
+            .btn {
+                background: linear-gradient(135deg, #1e293b 0%, #334155 100%);
+                box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+            }
+
+            .alternative-link a {
+                color: #94a3b8;
+            }
+
+            .alternative-link a:hover {
+                color: #a5b4fc;
+            }
+        }
+
+        @media screen and (max-width: 480px) {
+            .dados-grid {
+                grid-template-columns: 1fr;
+                padding: 16px;
+            }
+
+            .email-main {
+                padding: 24px 20px;
+            }
+
+            .email-title {
+                font-size: 20px;
+            }
+
+            .token-value {
+                font-size: 22px;
+                letter-spacing: 2px;
+            }
+
+            .email-header,
+            .email-footer {
+                padding: 24px 20px;
+            }
+
+            .email-header img {
+                max-height: 32px;
+            }
+
+            .btn {
+                padding: 12px 0;
+                font-size: 13px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="email-template">
+        <header class="email-header">
+            <img src="Logo-docz.png" alt="DocZ Logo">
+        </header>
+
+        <main class="email-main">
+            <div class="email-title-section">
+                <h1 class="email-title">CONFIRMAÇÃO DE EXPORTAÇÃO E EXCLUSÃO DA TRILHA DE AUDITORIA</h1>
+                <p class="salutation">Olá,</p>
+                <p class="email-subtitle">
+                    Foi solicitada uma operação de <strong>Exportação e Exclusão da Trilha de Auditoria</strong> no sistema <strong>DocZ</strong>.
+                </p>
+            </div>
+
+            <!-- Token de confirmação -->
+            <div class="token-box">
+                <div class="label">Código de confirmação</div>
+                <div class="token-value">{TOKEN}</div>
+                <div class="token-validity">Este código possui validade conforme configuração padrão do sistema.</div>
+            </div>
+
+            <!-- Aviso de segurança -->
+            <div class="alert-box">
+                <p>
+                    Caso você não tenha realizado esta solicitação, desconsidere este e-mail. 
+                    Nenhuma operação será executada sem a confirmação do token.
+                </p>
+            </div>
+
+            <!-- Botão Acessar Sistema -->
+            <div class="main-button">
+                <a href="https://docz.sosdocs.com.br/Docz/login" class="btn">Acessar Sistema DocZ</a>
+            </div>
+
+            <div class="alternative-link">
+                <span style="font-size: 13px; color: #64748b;">Ou acesse diretamente em:</span><br>
+                <a href="https://docz.sosdocs.com.br/Docz/login">https://docz.sosdocs.com.br/Docz/login</a>
+            </div>
+
+            <div style="margin-top: 30px; font-size: 12px; color: #64748b; text-align: center; line-height: 1.4;">
+                <p>Este é um e-mail automático para fins de registro. Por favor, não responda.</p>
+                <p style="margin-top: 5px;">Gerado eletronicamente por SOS TECNOLOGIA E GESTÃO DA INFORMAÇÃO em {DATA_HORA_GERACAO}.</p>
+            </div>
+        </main>
+
+        <footer class="email-footer">
+            <div class="footer-content">
+                <img src="logo-sosdocs-branca.png" alt="SosDocs Logo">
+                <div class="footer-divider"></div>
+                <p class="footer-text">Dúvidas? Entre em contato com nossa equipe:</p>
+                <a href="mailto:suporte@sosdocs.com" class="footer-contact">suporte@sosdocs.com</a>
+                <p class="footer-note">Sistema DocZ | SOS Docs</p>
+            </div>
+        </footer>
+    </div>
+</body>
+
+</html>
